@@ -1,0 +1,53 @@
+apiVersion: kustomize.config.k8s.io/v1beta1
+kind: Kustomization
+
+namespace: wirepact-poc-application
+
+commonLabels:
+  app.kubernetes.io/part-of: wirepact-poc
+  app.kubernetes.io/component: application
+
+resources:
+  - https://github.com/WirePact/poc-showcase-app/Kubernetes/?ref=main
+
+patchesJson6902:
+  - target:
+      kind: ConfigMap
+      name: modern-service-config-*
+      version: v1
+    patch: |-
+      - op: replace
+        path: /data/USE_WIREPACT
+        value: "true"
+  - target:
+      group: apps
+      kind: Deployment
+      name: deployment
+      version: v1
+      labelSelector: 'app.kubernetes.io/part=legacy-service'
+    patch: |-
+      - op: add
+        path: /metadata/annotations
+        value:
+          ch.wirepact/port: 80
+          ch.wirepact/credentials: basic-auth-creds
+  - target:
+      kind: Service
+      name: service
+      version: v1
+      labelSelector: 'app.kubernetes.io/part=legacy-service'
+    patch: |-
+      - op: add
+        path: /metadata/annotations
+        value:
+          ch.wirepact/deployment: legacy-deployment
+          ch.wirepact/port: 80
+
+generatorOptions:
+  disableNameSuffixHash: true
+
+secretGenerator:
+  - name: basic-auth-creds
+    literals:
+      - username=Admin
+      - password=AdminPass

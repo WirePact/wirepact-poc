@@ -1,0 +1,11 @@
+apiVersion: kustomize.config.k8s.io/v1beta1
+kind: Kustomization
+
+namespace: wirepact-poc-operator
+
+commonLabels:
+  app.kubernetes.io/part-of: wirepact-poc
+  app.kubernetes.io/component: operator
+
+resources:
+  - https://github.com/WirePact/poc-operator/src/WirePact.PoC.Operator/config/install/?ref=main
