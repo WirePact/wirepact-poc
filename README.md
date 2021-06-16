@@ -14,6 +14,7 @@ To install the case study, perform the following steps:
 
 - Get a Kubernetes instance (Docker Desktop with Kubernetes / minikube)
 - Install `kustomize` and `kubectl` executable
+- Set your Kubernetes context to the correct cluster / namespace combination
 - Install Ambassador in the Kubernetes cluster with `./Kubernetes/case-study/install-ambassador.sh`
 - Execute in bash:
   ```bash
