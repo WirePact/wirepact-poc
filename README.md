@@ -25,6 +25,10 @@ To install the case study, perform the following steps:
   (or "https://kubernetes.docker.internal", "https://kubernetes.local depeding on your configuration)
   when everything is done.
 
+To login into the case study application, you may use _any_ account on
+[ZITADEL](https://zitadel.ch). If you don't have one, you may create one.
+It does not matter, if the account is within an organization or a global account.
+
 ## Install and Run the Case Study
 
 To install the case study, you'll need a Kubernetes cluster.
